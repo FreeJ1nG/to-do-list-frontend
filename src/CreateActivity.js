@@ -8,20 +8,6 @@ export default function CreateActivity({ handleButtonClick }) {
   const [delta_days, setDeltaDays] = useState(0);
   const [due_date, setDueDate] = useState("");
 
-  const callCreateActivityAPI = async () => {
-    alert("data submitted");
-    const resp = await axios.post(
-      "https://api-freejing.herokuapp.com/todolist/create_activity/",
-      {
-        description: description,
-        due_date: due_date,
-        delta_hours: delta_hours,
-        delta_days: delta_days,
-      }
-    );
-    return resp;
-  };
-
   return (
     <Popup handleButtonClick={handleButtonClick}>
       <label for="description">
@@ -75,7 +61,17 @@ export default function CreateActivity({ handleButtonClick }) {
       </div>
       <div className="flex justify-center">
         <button
-          onClick={callCreateActivityAPI}
+          onClick={() => {
+            const resp = axios.post(
+              "https://api-freejing.herokuapp.com/todolist/create_activity/",
+              {
+                description: description,
+                due_date: due_date,
+                delta_hours: delta_hours,
+                delta_days: delta_days,
+              }
+            );
+          }}
           className="px-5 bg-second rounded-xl"
         >
           Submit
